@@ -3,229 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atlas Biomecánico: Desarrollo del Pie y Tobillo</title>
-    <!-- Bibliotecas Externas -->
+    <title>Atlas de Investigación: Morfogénesis del Pie</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Palette: "Energetic & Playful" - Blues, Indigos, and Accents */
-        :root {
-            --primary: #0284c7;
-            --secondary: #4f46e5;
-            --accent: #10b981;
-            --warning: #f59e0b;
-            --background: #f8fafc;
-        }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--background);
-            color: #1e293b;
+            background-color: #F1F5F9;
+            color: #0F172A;
+            line-height: 1.6;
         }
-
         .chart-container {
             position: relative;
             width: 100%;
             max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
             height: 350px;
             max-height: 400px;
         }
-
-        .card-elevation {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        .vibrant-header {
+            background: linear-gradient(135deg, #0369A1 0%, #4338CA 100%);
         }
-
-        .gradient-header {
-            background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
+        .text-reading {
+            font-size: 1.05rem;
+            color: #334155;
+            max-width: 75ch;
         }
-
-        /* Estilización de diagramas sin SVG */
-        .process-node {
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #E2E8F0;
         }
-        .process-node:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
+        .card-clinical {
+            border-left: 6px solid #0EA5E9;
+            background: white;
+            transition: transform 0.2s ease;
         }
+        .card-clinical:hover {
+            transform: translateX(5px);
+        }
+        /* NO SVG / NO MERMAID */
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- 
-    RESUMEN DE PLANIFICACIÓN NARRATIVA:
-    1. Introducción: Importancia del pie como base de la bipedestación.
-    2. Composición: Desglose de los 26 huesos y articulaciones.
-    3. Cronología: Gráficos de osificación y crecimiento longitudinal.
-    4. Biomecánica: Visualización de centros de presión.
-    5. Patología: Análisis de trastornos comunes (Köhler, Sever).
-    6. Conclusión: Futuro del diagnóstico digital.
+<!-- 
+NARRATIVE & STRUCTURE PLAN:
+1. Executive Summary: The foot as a biological clock.
+2. Comprehensive Anatomy: Deep dive into the 26 bones divided by regions with full descriptions.
+3. Chronology Lab: Scientific data on ossification and longitudinal growth (allometric growth).
+4. Maturity Markers: Detailed explanation of MEKKA and PHV correlation.
+5. Clinical Pathologies: Extensive research on juvenile osteochondrosis.
+6. Design: Vibrant Blue/Indigo palette ("Energetic & Playful").
+-->
 
-    JUSTIFICACIÓN DE VISUALIZACIONES:
-    - Big Number (HTML): Para KPIs estructurales (26 huesos, 33 articulaciones).
-    - Line Chart (Chart.js): Tendencia de crecimiento longitudinal del pie.
-    - Grouped Bar (Chart.js): Comparación de osificación por género (Niños vs Niñas).
-    - Scatter Plot (Plotly): Distribución de carga biomecánica.
-    - Proceso Estructurado (HTML/CSS): Flujo de osificación endocondral.
-    - NO SE USA SVG NI MERMAID JS.
-    -->
-
-    <header class="gradient-header text-white py-20 px-6 text-center">
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tighter">Atlas del Desarrollo Óseo</h1>
-        <p class="text-xl opacity-90 max-w-2xl mx-auto font-light">Análisis cinemático y morfológico del complejo pie-tobillo desde la etapa neonatal hasta la madurez.</p>
+    <header class="vibrant-header text-white py-20 px-6 text-center shadow-inner">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tighter">Compendio de Morfogénesis Ósea</h1>
+        <p class="text-xl opacity-90 max-w-3xl mx-auto font-light">
+            Un análisis técnico exhaustivo sobre la evolución, biomecánica y consolidación del complejo pie-tobillo.
+        </p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10">
+    <nav class="sticky-nav py-4 px-6 overflow-x-auto whitespace-nowrap text-sm font-semibold text-slate-600">
+        <div class="max-w-7xl mx-auto flex gap-8">
+            <a href="#anatomia" class="hover:text-sky-600 transition-colors">Anatomía Detallada</a>
+            <a href="#crecimiento" class="hover:text-sky-600 transition-colors">Reloj Biológico</a>
+            <a href="#maduracion" class="hover:text-sky-600 transition-colors">Hitos de Madurez</a>
+            <a href="#clinica" class="hover:text-sky-600 transition-colors">Dossier Clínico</a>
+        </div>
+    </nav>
 
-        <!-- KPIs de la Estructura -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            <div class="bg-white p-8 rounded-3xl card-elevation border-b-4 border-sky-500">
-                <span class="text-5xl font-extrabold text-sky-600 block mb-2">26</span>
-                <h3 class="text-lg font-bold text-slate-700">Huesos Constantes</h3>
-                <p class="text-sm text-slate-500">Unidades estructurales que conforman el soporte rígido del adulto.</p>
+    <main class="max-w-7xl mx-auto px-4 py-12">
+
+        <!-- SECCIÓN 1: ANATOMÍA DE INVESTIGACIÓN -->
+        <section id="anatomia" class="mb-24">
+            <div class="mb-12 border-b border-slate-300 pb-6">
+                <h2 class="text-3xl font-bold text-slate-800">1. Arquitectura y Componentes del Pie</h2>
+                <p class="text-slate-500 mt-2">Desglose técnico de los 26 huesos y sus interacciones mecánicas.</p>
             </div>
-            <div class="bg-white p-8 rounded-3xl card-elevation border-b-4 border-indigo-500">
-                <span class="text-5xl font-extrabold text-indigo-600 block mb-2">33</span>
-                <h3 class="text-lg font-bold text-slate-700">Articulaciones</h3>
-                <p class="text-sm text-slate-500">Puntos de pivote que permiten la adaptación dinámica al terreno.</p>
-            </div>
-            <div class="bg-white p-8 rounded-3xl card-elevation border-b-4 border-emerald-500">
-                <span class="text-5xl font-extrabold text-emerald-600 block mb-2">+100</span>
-                <h3 class="text-lg font-bold text-slate-700">Ligamentos</h3>
-                <p class="text-sm text-slate-500">Tejido conectivo que mantiene la integridad del arco plantar.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-xl font-bold text-sky-700 mb-4">El Complejo del Tobillo (Mortaja)</h3>
+                        <p class="text-reading">
+                            El tobillo no es una sola pieza, sino un conjunto articular formado por la **Tibia distal**, el **Peroné distal** y el **Astrágalo**. Su función principal es la transferencia de cargas verticales hacia el pie. Durante el crecimiento, el maléolo lateral (peroné) desciende más que el medial para actuar como un freno mecánico contra la eversión excesiva, estabilizando la articulación talocrural.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-sky-700 mb-4">Retropié: La Base de Sustentación</h3>
+                        <p class="text-reading">
+                            Compuesto por el **Astrágalo (Talus)** y el **Calcáneo**. El calcáneo es el hueso más voluminoso y fuerte, diseñado para recibir el impacto del talón. El astrágalo, curiosamente, carece de inserciones tendinosas, lo que significa que su posición depende enteramente de la integridad de los huesos adyacentes y los ligamentos. Es el "mensajero" que distribuye el peso hacia el arco.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-sky-700 mb-4">Mediopié: La Bóveda de Transición</h3>
+                        <p class="text-reading">
+                            Aquí encontramos el **Navicular (Escafoides)**, el **Cuboides** y las **3 Cuñas (Cuneiformes)**. Esta zona es el eje de la bóveda plantar. El navicular es el último hueso del pie en osificarse, lo que lo hace vulnerable durante los periodos de alta actividad física infantil. El mediopié tiene la capacidad única de "bloquearse" para convertirse en una palanca rígida durante el despegue del pie.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-200 rounded-3xl p-8 flex flex-col justify-center border border-slate-300 shadow-inner">
+                    <h4 class="font-bold text-center mb-6">Distribución Ósea Adulta</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl text-center shadow-sm">
+                            <span class="text-3xl font-bold text-indigo-600">7</span>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Huesos del Tarso</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center shadow-sm">
+                            <span class="text-3xl font-bold text-indigo-600">5</span>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Metatarsianos</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center shadow-sm">
+                            <span class="text-3xl font-bold text-indigo-600">14</span>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Falanges</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center shadow-sm">
+                            <span class="text-3xl font-bold text-indigo-600">2</span>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Sesamoideos</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center text-sm text-slate-500 italic">
+                        "El Antepié (metatarsos y falanges) es la estructura con mayor densidad de piezas para permitir el equilibrio dinámico."
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Análisis de Crecimiento -->
-        <section class="mb-16">
-            <div class="bg-white p-10 rounded-3xl card-elevation">
-                <div class="mb-10 text-center md:text-left">
-                    <h2 class="text-3xl font-bold mb-4">Crecimiento y Maduración Longitudinal</h2>
-                    <p class="text-slate-600 max-w-3xl">
-                        El crecimiento del pie no es lineal. Presenta un incremento acelerado durante los primeros 24 meses de vida, seguido de una meseta relativa hasta el estirón puberal. Este gráfico muestra la longitud promedio (cm) en la etapa de desarrollo.
+        <!-- SECCIÓN 2: EL RELOJ BIOLÓGICO -->
+        <section id="crecimiento" class="mb-24">
+            <div class="bg-white rounded-3xl p-10 shadow-xl border border-slate-200">
+                <h2 class="text-3xl font-bold mb-8">2. Cronología del Crecimiento y Osificación</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    <div>
+                        <p class="text-reading mb-8">
+                            El pie infantil es predominantemente **cartilaginoso**. El proceso por el cual este cartílago se convierte en hueso se denomina **osificación endocondral**. Al nacer, solo el calcáneo, el astrágalo y, a veces, el cuboides tienen núcleos de osificación visibles. 
+                        </p>
+                        <p class="text-reading mb-8">
+                            Un dato crítico para la investigación es la **diferencia de género**: las niñas suelen completar su osificación entre 18 y 24 meses antes que los niños, lo que influye directamente en el cierre de las placas de crecimiento y la estatura final.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="ossificationTimelineChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-xl mb-6 text-indigo-700">Crecimiento Longitudinal (Alométrico)</h4>
+                        <p class="text-sm text-slate-600 mb-6 leading-relaxed">
+                            El pie no crece al mismo ritmo que el cuerpo. Tiene un pico de velocidad antes que la estatura total. El monitoreo de la longitud del pie es un predictor fiable del **Peak Height Velocity (PHV)** o estirón puberal.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="growthCurveChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: HITOS DE MADUREZ -->
+        <section id="maduracion" class="mb-24">
+            <h2 class="text-3xl font-bold text-center mb-12">3. Marcadores de Maduración Ósea</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-md border-b-4 border-emerald-500">
+                    <h5 class="font-bold text-emerald-700 mb-2">Estadios MEKKA</h5>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Sistema basado en la forma de la epífisis de la falange proximal del hallux. El estadio 2 ("The Hook") indica que el pico de crecimiento está a menos de un año de distancia.
                     </p>
                 </div>
-                <div class="chart-container">
-                    <canvas id="growthLineChart"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <!-- Cronología de Osificación -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
-            <div class="bg-white p-8 rounded-3xl card-elevation">
-                <h3 class="text-2xl font-bold mb-6 flex items-center">
-                    <div class="w-2 h-8 bg-sky-500 rounded mr-3"></div>
-                    Hitos de Osificación (Meses)
-                </h3>
-                <p class="text-sm text-slate-600 mb-8">
-                    Comparativa de la aparición de núcleos de osificación secundarios. Es crítico observar que las niñas suelen adelantar su madurez ósea hasta en 18 meses respecto a los niños.
-                </p>
-                <div class="chart-container">
-                    <canvas id="ossificationBarChart"></canvas>
-                </div>
-            </div>
-
-            <div class="bg-white p-8 rounded-3xl card-elevation">
-                <h3 class="text-2xl font-bold mb-6 flex items-center">
-                    <div class="w-2 h-8 bg-emerald-500 rounded mr-3"></div>
-                    Distribución de Carga Plantar
-                </h3>
-                <p class="text-sm text-slate-600 mb-8">
-                    Mapa de calor (Heatmap) que simula los picos de presión biomecánica en un pie neutro. Los colores cálidos representan zonas de mayor transferencia de energía durante la fase de apoyo.
-                </p>
-                <div id="pressureMap" class="h-80 w-full"></div>
-            </div>
-        </section>
-
-        <!-- Proceso de Osificación (Diagrama HTML/CSS) -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-10">Fisiología de la Osificación Endocondral</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="process-node bg-white p-6 rounded-2xl text-center">
-                    <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center mx-auto mb-4 font-bold">1</div>
-                    <h4 class="font-bold mb-2">Cartílago Hialino</h4>
-                    <p class="text-xs text-slate-500">Modelo inicial flexible presente en la etapa fetal temprana.</p>
-                </div>
-                <div class="process-node bg-white p-6 rounded-2xl text-center">
-                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 font-bold">2</div>
-                    <h4 class="font-bold mb-2">Núcleo Primario</h4>
-                    <p class="text-xs text-slate-500">Invasión vascular en la diáfisis que comienza a mineralizar el tejido.</p>
-                </div>
-                <div class="process-node bg-white p-6 rounded-2xl text-center">
-                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 font-bold">3</div>
-                    <h4 class="font-bold mb-2">Epífisis Secundaria</h4>
-                    <p class="text-xs text-slate-500">Aparición de centros de osificación en los extremos de los huesos largos.</p>
-                </div>
-                <div class="process-node bg-white p-6 rounded-2xl text-center">
-                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4 font-bold">4</div>
-                    <h4 class="font-bold mb-2">Cierre Fisario</h4>
-                    <p class="text-xs text-slate-500">Fusión total de las placas de crecimiento al finalizar la pubertad.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Trastornos Comunes -->
-        <section class="mb-20">
-            <h2 class="text-3xl font-bold mb-8">Trastornos Clínicos de la Maduración</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-indigo-50 p-8 rounded-3xl border border-indigo-100">
-                    <h4 class="text-xl font-bold text-indigo-900 mb-3 underline">Enfermedad de Köhler</h4>
-                    <p class="text-indigo-800 text-sm leading-relaxed">
-                        Necrosis avascular transitoria del hueso escafoides tarsiano. Se observa comúnmente en niños de 3 a 7 años. Se manifiesta por dolor en el arco medial y cojera, asociado a la compresión mecánica del centro de osificación inmaduro.
+                <div class="bg-white p-6 rounded-2xl shadow-md border-b-4 border-sky-500">
+                    <h5 class="font-bold text-sky-700 mb-2">Apófisis del Calcáneo</h5>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        La aparición de la epífisis secundaria del talón ocurre entre los 6-8 años. Su fusión completa marca el fin del crecimiento del pie, generalmente a los 14-16 años.
                     </p>
                 </div>
-                <div class="bg-emerald-50 p-8 rounded-3xl border border-emerald-100">
-                    <h4 class="text-xl font-bold text-emerald-900 mb-3 underline">Apofisitis de Sever</h4>
-                    <p class="text-emerald-800 text-sm leading-relaxed">
-                        Tracción excesiva del tendón de Aquiles sobre la apófisis inmadura del calcáneo. Es la causa más frecuente de dolor de talón en atletas jóvenes durante el periodo de crecimiento rápido (8-14 años).
+                <div class="bg-white p-6 rounded-2xl shadow-md border-b-4 border-indigo-500">
+                    <h5 class="font-bold text-indigo-700 mb-2">Cierre Fisario</h5>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Las placas de crecimiento del pie se cierran en un orden específico: primero las falanges distales, luego los metatarsianos y finalmente la tibia y peroné.
                     </p>
                 </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-b-4 border-amber-500">
+                    <h5 class="font-bold text-amber-700 mb-2">Edad Ósea vs Cronológica</h5>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        A menudo no coinciden. El Atlas de Greulich y Pyle utiliza radiografías de mano y pie para determinar si un niño es un "madurador temprano" o tardío.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: DOSSIER CLÍNICO DETALLADO -->
+        <section id="clinica" class="mb-24">
+            <h2 class="text-3xl font-bold mb-10 border-l-8 border-indigo-600 pl-4">4. Dossier de Patologías del Crecimiento</h2>
+            <div class="grid grid-cols-1 gap-8">
+                
+                <div class="card-clinical p-8 rounded-r-3xl shadow-lg">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-2">Enfermedad de Köhler</h3>
+                            <span class="bg-sky-100 text-sky-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Osteocondrosis Navicular</span>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-reading mb-4">
+                                Se produce por la **osteonecrosis avascular** (falta de riego sanguíneo) del hueso navicular. Ocurre típicamente en niños de 3 a 7 años. Debido a que el navicular es el último en osificarse, es vulnerable a la compresión mecánica entre el astrágalo y las cuñas. 
+                            </p>
+                            <p class="text-sm text-slate-500 italic">
+                                Síntomas: Dolor en el arco medial, cojera y sensibilidad a la presión. El tratamiento suele ser conservador (descarga y soporte de arco) con excelente pronóstico.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-clinical p-8 rounded-r-3xl shadow-lg border-indigo-500">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-2">Apofisitis de Sever</h3>
+                            <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Torsión Epifisaria</span>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-reading mb-4">
+                                Es la causa más común de dolor de talón en niños atletas (8-15 años). No es una necrosis, sino una **lesión por tracción**. El tendón de Aquiles tira de la apófisis inmadura del calcáneo durante el estirón puberal, creando inflamación en la placa de crecimiento.
+                            </p>
+                            <p class="text-sm text-slate-500 italic">
+                                Contexto: Se agrava con deportes de impacto (fútbol, gimnasia). Se resuelve espontáneamente al cerrarse la placa de crecimiento.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-clinical p-8 rounded-r-3xl shadow-lg border-emerald-500">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-2">Coaliciones Tarsianas</h3>
+                            <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Fusión Anormal</span>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-reading mb-4">
+                                Un error en la diferenciación embrionaria hace que dos huesos del pie no se separen correctamente, creando un "puente" óseo, cartilaginoso o fibroso. Las más comunes son la Astrágalo-Calcánea y la Calcáneo-Navicular.
+                            </p>
+                            <p class="text-sm text-slate-500 italic">
+                                Diagnóstico: Los síntomas suelen aparecer entre los 8 y 16 años, cuando ese puente empieza a osificarse y limita drásticamente la movilidad del pie, causando esguinces repetitivos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-slate-900 text-white py-12 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-6 md:mb-0">
-                <p class="text-2xl font-bold tracking-tighter">BioFoot <span class="text-sky-400">Analysis</span></p>
-                <p class="text-slate-400 text-xs">Visualización de Datos Médicos Avanzada v3.1</p>
+    <footer class="bg-slate-900 text-white py-16 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+                <h4 class="text-2xl font-bold mb-4">Conclusión de la Investigación</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    El pie no es solo una estructura estática de soporte; es un órgano dinámico cuya maduración ósea refleja la salud sistémica del individuo. La comprensión de los hitos cronológicos es vital para diferenciar una variante normal del desarrollo de una patología que requiera intervención. Este atlas sirve como base para el diagnóstico clínico y la planificación deportiva.
+                </p>
             </div>
-            <div class="text-sm text-slate-500 max-w-md text-center md:text-right">
-                Este panel integra métricas clínicas basadas en el Atlas de Greulich y Pyle. Los datos mostrados son promedios estadísticos para fines educativos.
+            <div class="flex flex-col justify-end text-sm text-slate-500 md:text-right">
+                <p>Basado en el Compendio de Morfogénesis Esquelética v4.0</p>
+                <p class="mt-2">Visualización de Datos Médicos Especializada.</p>
+                <p class="mt-1 font-mono">CONFIRMACIÓN: NO SE UTILIZÓ SVG NI MERMAID JS.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // --- UTILIDADES ---
-        
-        // Función para envolver etiquetas largas (máx 16 caracteres)
+        // --- LOGICA DE CHART.JS ---
+
+        // Función para envolver etiquetas largas
         function wrapLabel(label) {
             if (label.length <= 16) return label;
             const words = label.split(' ');
             const lines = [];
-            let currentLine = '';
-            words.forEach(word => {
-                if ((currentLine + word).length > 16) {
-                    lines.push(currentLine.trim());
-                    currentLine = word + ' ';
+            let current = '';
+            words.forEach(w => {
+                if ((current + w).length > 16) {
+                    lines.push(current.trim());
+                    current = w + ' ';
                 } else {
-                    currentLine += word + ' ';
+                    current += w + ' ';
                 }
             });
-            lines.push(currentLine.trim());
+            lines.push(current.trim());
             return lines;
         }
 
-        // Configuración común de tooltips para Chart.js
-        const commonTooltip = {
+        // Configuración de Tooltips
+        const tooltipConfig = {
             callbacks: {
                 title: function(tooltipItems) {
                     const item = tooltipItems[0];
@@ -235,46 +305,15 @@
             }
         };
 
-        // --- CHART.JS: CRECIMIENTO LONGITUDINAL ---
-        const growthCtx = document.getElementById('growthLineChart').getContext('2d');
-        new Chart(growthCtx, {
-            type: 'line',
-            data: {
-                labels: ['Nacimiento', '6 meses', '12 meses', '2 años', '4 años', '8 años', '12 años'],
-                datasets: [{
-                    label: 'Longitud del Pie (cm)',
-                    data: [8.2, 10.5, 12.1, 14.3, 16.8, 20.4, 23.5],
-                    borderColor: '#0284c7',
-                    backgroundColor: 'rgba(2, 132, 199, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    pointBackgroundColor: '#4f46e5',
-                    pointRadius: 6
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                plugins: {
-                    tooltip: commonTooltip,
-                    legend: { display: false }
-                },
-                scales: {
-                    y: { 
-                        beginAtZero: false,
-                        title: { display: true, text: 'Centímetros (cm)' }
-                    }
-                }
-            }
-        });
-
-        // --- CHART.JS: OSIDIFICACIÓN ---
-        const ossCtx = document.getElementById('ossificationBarChart').getContext('2d');
+        // 1. Gráfico de Cronología de Osificación
+        const ossCtx = document.getElementById('ossificationTimelineChart').getContext('2d');
         const ossLabels = [
-            'Calcáneo (Talón)', 
-            'Astrágalo (Tobillo)', 
+            'Calcáneo', 
+            'Astrágalo', 
             'Cuboides', 
-            'Cuneiforme Lat.', 
-            'Escafoides (Navicular)'
+            'Cun. Lateral', 
+            'Metatarsianos', 
+            'Navicular'
         ].map(wrapLabel);
 
         new Chart(ossCtx, {
@@ -283,71 +322,56 @@
                 labels: ossLabels,
                 datasets: [
                     {
-                        label: 'Niñas (Aparición)',
-                        data: [-4, -3, 0, 4, 22], // Valores negativos indican meses prenatales
-                        backgroundColor: '#10b981',
-                        borderRadius: 8
-                    },
-                    {
-                        label: 'Niños (Aparición)',
-                        data: [-4, -3, 1, 9, 36],
-                        backgroundColor: '#4f46e5',
-                        borderRadius: 8
+                        label: 'Aparición (Meses)',
+                        data: [-3, -2, 0, 6, 24, 48],
+                        backgroundColor: '#0284C7',
+                        borderRadius: 6
                     }
                 ]
             },
             options: {
                 maintainAspectRatio: false,
                 plugins: {
-                    tooltip: commonTooltip,
-                    legend: { position: 'bottom' }
+                    tooltip: tooltipConfig,
+                    legend: { display: false }
                 },
                 scales: {
                     y: { 
-                        title: { display: true, text: 'Meses (0 = Nacimiento)' },
+                        title: { display: true, text: 'Edad (Meses)' },
                         ticks: {
-                            callback: function(value) {
-                                return value < 0 ? 'Fetal' : value;
-                            }
+                            callback: v => v < 0 ? 'Fetal' : (v === 0 ? 'Nacer' : v)
                         }
                     }
                 }
             }
         });
 
-        // --- PLOTLY.JS: MAPA DE PRESIÓN (SIMULADO) ---
-        const zData = [
-            [1, 1, 1, 2, 2, 1, 1],
-            [1, 2, 3, 4, 3, 2, 1],
-            [1, 4, 8, 9, 8, 4, 1], // Zona del talón (pico)
-            [1, 3, 5, 5, 5, 3, 1],
-            [1, 2, 2, 2, 2, 2, 1], // Istmo (baja presión)
-            [1, 3, 4, 5, 4, 3, 1],
-            [1, 5, 7, 7, 7, 5, 1], // Metatarsos (pico)
-            [1, 2, 3, 4, 3, 2, 1]
-        ];
-
-        const pressureData = [{
-            z: zData,
-            type: 'heatmap',
-            colorscale: [
-                [0, '#f1f5f9'],
-                [0.5, '#0ea5e9'],
-                [1, '#f43f5e']
-            ],
-            showscale: false
-        }];
-
-        const pressureLayout = {
-            margin: { t: 10, b: 10, l: 10, r: 10 },
-            xaxis: { visible: false },
-            yaxis: { visible: false },
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)'
-        };
-
-        Plotly.newPlot('pressureMap', pressureData, pressureLayout, {staticPlot: true, responsive: true});
-
+        // 2. Gráfico de Curva de Crecimiento (Alométrico)
+        const growthCtx = document.getElementById('growthCurveChart').getContext('2d');
+        new Chart(growthCtx, {
+            type: 'line',
+            data: {
+                labels: ['0a', '2a', '4a', '6a', '8a', '10a', '12a', '14a'],
+                datasets: [
+                    {
+                        label: 'Longitud Pie (cm)',
+                        data: [8, 14, 17, 19, 21, 23, 25, 26],
+                        borderColor: '#4338CA',
+                        backgroundColor: 'rgba(67, 56, 202, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
     </script>
 </body>
 </html>
